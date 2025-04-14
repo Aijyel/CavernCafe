@@ -50,7 +50,6 @@ h1, h2, h3 {
 h1 {
   font-size: 3.5rem;
   letter-spacing: 2px;
-  color: var(--off-white);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -657,7 +656,7 @@ header {
 
 /* Footer */
 footer {
-  background: linear-gradient(to bottom, var(--deep-blue), var(--medium-blue));
+  background: linear-gradient(to bottom, var(--deep-brown), var(--medium-brown));
   color: var(--off-white);
   padding: 60px 20px 40px;
   margin-top: 100px;
