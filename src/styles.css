@@ -1,14 +1,17 @@
+/* Medieval-themed CSS with brown and blue color palette */
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=EB+Garamond:wght@400;600&display=swap');
 
 :root {
-  --deep-brown: #523a28;
-  --rich-brown: #7a3b2e;
+    --deep-brown: #5e3a23;
+  --medium-brown: #8c5e3a;
   --light-brown: #c9b18f;
-  --cream: #fef9f2;
+  --very-light-brown: #e8dacb;
   --parchment: #f8f4e3;
   --deep-blue: #1a3c61;
   --medium-blue: #2d5d8c;
   --light-blue: #a1c6ea;
+  --off-white: #fef9f2;
+  --dark-text: #3b2f2f;
 }
 
 * {
@@ -19,38 +22,111 @@
 
 body {
   font-family: 'EB Garamond', serif;
-  background-color: var(--parchment);
-  color: #3b2f2f;
+  color: var(--dark-text);
   line-height: 1.6;
   position: relative;
+  background-color: var(--parchment);
+  overflow-x: hidden;
 }
 
-body::before {
-  content: "";
+.parchment-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-  opacity: 0.5;
+  background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
+  opacity: 0.4;
+  pointer-events: none;
   z-index: -1;
 }
 
-/* Header Styles */
+/* Typography */
+h1, h2, h3 {
+  font-family: 'MedievalSharp', cursive;
+  color: var(--deep-brown);
+}
+
+h1 {
+  font-size: 3.5rem;
+  letter-spacing: 2px;
+  color: var(--off-white);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--medium-blue);
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--deep-blue);
+}
+
+/* Layout */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+section {
+  margin: 80px 0;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+
+section.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-divider {
+  display: inline-block;
+  width: 150px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--medium-brown), transparent);
+  margin: 10px auto 30px;
+}
+
+/* Header & Banner */
 header {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner {
   background: linear-gradient(to bottom, var(--deep-blue), var(--medium-blue));
   background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
   background-blend-mode: multiply;
-  color: var(--cream);
-  padding: 80px 20px;
-  text-align: center;
+  padding: 120px 20px;
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-header::before {
+.banner::before {
   content: "";
   position: absolute;
   top: 0;
@@ -61,413 +137,431 @@ header::before {
   background-size: cover;
   background-position: center;
   opacity: 0.15;
-  z-index: -1;
 }
 
-.nav-container {
-  position: sticky;
-  top: 0;
+.banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.emblem {
+  width: 120px;
+  height: 120px;
+  background-image: radial-gradient(var(--light-brown), transparent);
+  background-color: var(--medium-brown);
+  border: 4px solid var(--off-white);
+  border-radius: 50%;
+  position: relative;
+  margin: 30px auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.emblem::before {
+  content: "☕";
+  font-size: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--off-white);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.tagline {
+  font-size: 1.4rem;
+  color: var(--off-white);
+  font-style: italic;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Navigation */
+.main-nav {
   background-color: var(--deep-brown);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
   z-index: 100;
 }
 
-nav {
+.fixed-nav .main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.fixed-nav main {
+  margin-top: 60px;
+}
+
+.nav-container {
   display: flex;
   justify-content: center;
-  padding: 0.5rem;
+  flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-nav a {
-  color: var(--cream);
-  text-decoration: none;
-  padding: 10px 15px;
-  margin: 0 5px;
+.main-nav a {
+  display: inline-block;
+  color: var(--off-white);
+  padding: 18px 25px;
   font-family: 'MedievalSharp', cursive;
   font-size: 1.1rem;
   position: relative;
-  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-nav a::after {
+.main-nav a::after {
   content: "";
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   left: 50%;
   width: 0;
   height: 2px;
   background-color: var(--light-brown);
-  transition: all 0.3s ease;
   transform: translateX(-50%);
+  transition: width 0.3s ease;
 }
 
-nav a:hover {
+.main-nav a:hover {
   color: var(--light-brown);
 }
 
-nav a:hover::after {
-  width: 80%;
+.main-nav a:hover::after {
+  width: 60%;
 }
 
-h1 {
+/* About Section */
+.parchment {
+  background-color: var(--off-white);
+  border: 2px solid var(--light-brown);
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
+  }
+
+.parchment::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid var(--light-brown);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.drop-cap {
+  float: left;
   font-family: 'MedievalSharp', cursive;
   font-size: 4rem;
-  margin-bottom: 15px;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  animation: fadeIn 1.5s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.subtitle {
-  font-size: 1.4rem;
-  font-style: italic;
-  max-width: 700px;
-  margin: 0 auto;
-  animation: fadeIn 1.5s ease-out 0.3s forwards;
-  opacity: 0;
-}
-
-h2 {
-  font-family: 'MedievalSharp', cursive;
+  line-height: 0.8;
+  padding-top: 10px;
+  padding-right: 8px;
   color: var(--deep-brown);
-  font-size: 2.2rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  position: relative;
-  padding-bottom: 10px;
 }
 
-h2::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
-  background: linear-gradient(to right, var(--light-brown), var(--medium-blue), var(--light-brown));
-  border-radius: 2px;
-}
-
-section {
-  padding: 60px 20px;
-  max-width: 1100px;
-  margin: 40px auto;
-  background-color: var(--cream);
-  border: 2px solid var(--light-brown);
-  border-radius: 12px;
-  box-shadow: 0 6px 30px rgba(60, 40, 20, 0.1);
-  position: relative;
-  overflow: hidden;
-}
-
-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
-  opacity: 0.8;
-  z-index: -1;
-}
-
-/* Profile Section */
-.profile-card {
+/* Innkeeper Profile */
+.innkeeper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--cream);
-  border: 3px solid var(--light-brown);
-  border-radius: 15px;
-  padding: 35px;
-  margin-top: 20px;
-  box-shadow: 0 8px 20px rgba(60, 40, 20, 0.15);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease;
+  gap: 40px;
+  background-color: var(--off-white);
+  border: 2px solid var(--light-brown);
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
 }
 
-.profile-card::before {
+@media (min-width: 768px) {
+  .innkeeper {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.portrait-frame {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  flex-shrink: 0;
+}
+
+.portrait-frame::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background-color: var(--medium-brown);
+  border: 8px solid var(--deep-brown);
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.portrait {
+  position: relative;
   width: 100%;
   height: 100%;
-  background-image: url('https://www.transparenttextures.com/patterns/old-map.png');
-  opacity: 0.15;
-  z-index: -1;
+  overflow: hidden;
+  z-index: 2;
 }
 
-.profile-card:hover {
-  transform: translateY(-5px);
-}
-
-@media (min-width: 800px) {
-  .profile-card {
-    flex-direction: row;
-    text-align: left;
-    gap: 40px;
-  }
-}
-
-.profile-img-container {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin-bottom: 25px;
-}
-
-@media (min-width: 800px) {
-  .profile-img-container {
-    margin-bottom: 0;
-  }
-}
-
-.profile-img {
+.portrait img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
-  border: 6px solid var(--light-brown);
-  box-shadow: 0 0 15px rgba(82, 58, 40, 0.5);
-  transition: all 0.3s ease;
+  border: 3px solid var(--off-white);
 }
 
-.profile-img-container::before {
-  content: "";
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, var(--light-brown), var(--light-blue), var(--light-brown));
-  z-index: -1;
-  opacity: 0.7;
+.innkeeper-story {
+  flex-grow: 1;
 }
 
-.profile-text {
-  max-width: 600px;
+.innkeeper-story h3 {
+  font-size: 1.8rem;
+  color: var(--deep-brown);
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 0 var(--off-white);
 }
 
-.profile-text h3 {
-  font-family: 'MedievalSharp', cursive;
-  color: var(--rich-brown);
-  margin-bottom: 15px;
-  font-size: 1.8em;
-}
-
-/* Menu Section */
-.menu-grid {
+/* Menu */
+.menu-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
-  margin-top: 30px;
 }
 
 .menu-card {
-  background-color: var(--cream);
-  border: 3px solid var(--light-brown);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 8px 15px rgba(60, 40, 20, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  background-color: var(--off-white);
+  border: 2px solid var(--light-brown);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
-}
-
-.menu-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--light-brown) 0%, transparent 150%);
-  opacity: 0.1;
-  z-index: -1;
 }
 
 .menu-card:hover {
-  transform: translateY(-8px) rotate(1deg);
-  box-shadow: 0 15px 30px rgba(60, 40, 20, 0.15);
+  transform: translateY(-10px) rotate(1deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
-.menu-card h3 {
-  font-family: 'MedievalSharp', cursive;
-  font-size: 1.5em;
-  color: var(--rich-brown);
-  margin: 15px 0;
-  text-align: center;
+.menu-image {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
 }
 
-.menu-card p {
-  font-size: 1.05em;
-  color: #3b2f2f;
-  flex-grow: 1;
-  margin-bottom: 15px;
-}
-
-.menu-card .price {
-  display: block;
-  text-align: right;
-  margin-top: 15px;
-  font-weight: bold;
-  color: var(--deep-brown);
-  font-style: italic;
-  font-size: 1.2em;
-}
-
-.menu-card img {
+.menu-image::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  height: 40px;
+  background: linear-gradient(to top, var(--off-white), transparent);
 }
 
-.menu-card:hover img {
-  transform: scale(1.05);
+.menu-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.5s ease;
+}
+
+.menu-card:hover .menu-image img {
+  transform: scale(1.1);
+}
+
+.menu-content {
+  padding: 20px;
+  position: relative;
+}
+
+.menu-content h3 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: var(--deep-brown);
+}
+
+.menu-content p {
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.price-tag {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-color: var(--medium-brown);
+  color: var(--off-white);
+  font-family: 'MedievalSharp', cursive;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transform: rotate(-2deg);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Testimonials */
-.testimonials {
+.testimonials-container {
   display: grid;
   gap: 30px;
 }
 
 .testimonial {
-  background-color: var(--cream);
-  border-left: 5px solid var(--medium-blue);
-  padding: 25px;
-  font-style: italic;
   position: relative;
-  border-radius: 0 10px 10px 0;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  background-color: var(--off-white);
+  border: 2px solid var(--light-brown);
+  border-radius: 10px;
+  padding: 30px 30px 70px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
 }
 
 .testimonial::before {
   content: """;
   position: absolute;
-  top: 0;
-  left: 20px;
-  font-size: 5em;
-  color: var(--light-blue);
+  top: 15px;
+  left: 15px;
+  font-size: 6rem;
+  color: var(--light-brown);
   opacity: 0.3;
   font-family: serif;
-  line-height: 1;
+  line-height: 0;
 }
 
-.testimonial:hover {
-  transform: translateX(5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.testimonial p {
+.testimonial-text {
   position: relative;
   z-index: 1;
-  font-size: 1.1em;
+  font-style: italic;
+  font-size: 1.1rem;
 }
 
-.testimonial footer {
-  margin-top: 15px;
-  font-weight: bold;
-  font-style: normal;
-  color: var(--rich-brown);
-  text-align: right;
+.testimonial-author {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.seal {
+  width: 30px;
+  height: 30px;
+  background-color: var(--medium-brown);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.seal::before {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--off-white);
+  font-size: 16px;
+}
+
+.testimonial-author span {
+  font-family: 'MedievalSharp', cursive;
+  font-size: 0.9rem;
+  color: var(--deep-brown);
 }
 
 /* Reservation Form */
-.reservation-form {
-  background-color: var(--cream);
-  border: 3px solid var(--light-brown);
-  border-radius: 15px;
-  padding: 30px;
-  max-width: 700px;
+.reservation-container {
+  max-width: 800px;
   margin: 0 auto;
-  position: relative;
-  box-shadow: 0 8px 20px rgba(60, 40, 20, 0.1);
 }
 
-.reservation-form::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--light-blue) 0%, transparent 150%);
-  opacity: 0.1;
-  z-index: -1;
-  border-radius: 12px;
+.reservation-form {
+  background-color: var(--off-white);
+  border: 2px solid var(--light-brown);
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
 }
 
-.form-group {
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-bottom: 20px;
 }
 
-.reservation-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: var(--deep-brown);
-  font-size: 1.1em;
+.form-group {
+  flex: 1 1 300px;
+  margin-bottom: 20px;
 }
 
-.reservation-form input,
-.reservation-form textarea,
-.reservation-form select {
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--deep-brown);
+  font-size: 1.1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
   width: 100%;
-  padding: 12px;
+  padding: 12px 15px;
   border: 2px solid var(--light-brown);
-  border-radius: 8px;
+  border-radius: 5px;
+  background-color: var(--very-light-brown);
   font-family: 'EB Garamond', serif;
-  font-size: 1.05em;
-  background-color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  color: var(--dark-text);
   transition: all 0.3s ease;
 }
 
-.reservation-form input:focus,
-.reservation-form textarea:focus,
-.reservation-form select:focus {
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
   border-color: var(--medium-blue);
-  box-shadow: 0 0 0 3px rgba(161, 198, 234, 0.3);
+    box-shadow: 0 0 0 3px rgba(45, 93, 140, 0.1);
 }
 
-.reservation-form button {
-  margin-top: 20px;
-  padding: 12px 25px;
-  font-family: 'MedievalSharp', cursive;
-  font-size: 1.2em;
-  background: linear-gradient(to right, var(--rich-brown), var(--deep-brown));
-  color: var(--cream);
+.medieval-button {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 30px auto 0;
+  padding: 15px 25px;
+  background: linear-gradient(to bottom, var(--medium-brown), var(--deep-brown));
+  color: var(--off-white);
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
+  font-family: 'MedievalSharp', cursive;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
+  transition: all 0.3s ease;
+  text-align: center;
 }
 
-.reservation-form button::before {
+.medieval-button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -476,54 +570,97 @@ section::before {
   height: 100%;
   background: linear-gradient(
     to right,
-    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 0%,
     rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.1) 100%
+    rgba(255, 255, 255, 0) 100%
   );
   transition: all 0.6s ease;
 }
 
-.reservation-form button:hover {
+.medieval-button:hover {
+  background: linear-gradient(to bottom, #7a4e33, var(--deep-brown));
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
 
-.reservation-form button:hover::before {
+.medieval-button:hover::before {
   left: 100%;
 }
 
 /* Contact Section */
-.contact-info {
-  max-width: 700px;
+.contact-container {
+  max-width: 800px;
   margin: 0 auto;
+}
+
+.contact-methods {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.contact-method {
+  background-color: var(--off-white);
+  border: 2px solid var(--light-brown);
+  border-radius: 10px;
+  padding: 30px;
   text-align: center;
-}
-
-.contact-info p {
-  margin-bottom: 15px;
-  font-size: 1.1em;
-}
-
-.contact-info a {
-  color: var(--rich-brown);
-  text-decoration: none;
-  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  border-bottom: 1px dotted transparent;
+  background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
 }
 
-.contact-info a:hover {
-  color: var(--medium-blue);
-  border-bottom-color: var(--medium-blue);
+.contact-method:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.contact-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background-color: var(--medium-brown);
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.contact-icon::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--off-white);
+  font-size: 24px;
+}
+
+.contact-icon.scroll::before {
+  content: "✉";
+}
+
+.contact-icon.horn::before {
+  content: "☎";
+}
+
+.contact-icon.map::before {
+  content: "⌖";
+}
+
+.contact-method h3 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.contact-method p {
+  margin-bottom: 10px;
 }
 
 /* Footer */
 footer {
-  background: linear-gradient(to right, var(--deep-blue), var(--medium-blue));
-  color: var(--cream);
-  text-align: center;
-  padding: 40px 20px;
-  font-size: 1em;
+  background: linear-gradient(to bottom, var(--deep-blue), var(--medium-blue));
+  color: var(--off-white);
+  padding: 60px 20px 40px;
+  margin-top: 100px;
   position: relative;
 }
 
@@ -536,25 +673,33 @@ footer::before {
   height: 100%;
   background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
   opacity: 0.2;
-  z-index: -1;
-}
-
-footer a {
-  color: var(--light-brown);
-  transition: all 0.3s ease;
-}
-
-footer a:hover {
-  color: var(--cream);
-  text-decoration: none;
-}
+  }
 
 .footer-content {
-  max-width: 1100px;
+  position: relative;
+  max-width: 1000px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
+}
+
+.footer-emblem {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 30px;
+  background-color: var(--medium-brown);
+  border: 3px solid var(--off-white);
+  border-radius: 50%;
+  position: relative;
+}
+
+.footer-emblem::before {
+  content: "☕";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--off-white);
+  font-size: 32px;
 }
 
 .footer-links {
@@ -562,77 +707,143 @@ footer a:hover {
 }
 
 .footer-links a {
-  margin: 0 10px;
-  display: inline-block;
+  color: var(--light-brown);
+  margin: 0 15px;
+  font-family: 'MedievalSharp', cursive;
+  font-size: 1.1rem;
+}
+
+.footer-links a:hover {
+  color: var(--off-white);
 }
 
 .social-links {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 20px;
+  margin: 30px 0;
 }
 
-.social-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.social-link {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
+  color: transparent;
+  overflow: hidden;
+  font-size: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   transition: all 0.3s ease;
 }
 
-.social-links a:hover {
+.social-link:hover {
   background-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-3px);
 }
 
-.social-icon {
-  width: 20px;
-  height: 20px;
+.social-link::before {
+  font-size: 20px;
+  color: var(--off-white);
+}
+
+.social-link.instagram::before {
+  content: "📷";
+}
+
+.social-link.facebook::before {
+  content: "👍";
+}
+
+.social-link.twitter::before {
+  content: "🐦";
 }
 
 .copyright {
   margin-top: 20px;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   opacity: 0.8;
 }
 
-/* Responsive Adjustments */
+/* Media Queries */
 @media (max-width: 768px) {
   h1 {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
   
-  section {
-    padding: 40px 15px;
-    margin: 30px 15px;
+  .banner {
+    padding: 80px 20px;
   }
   
-  .menu-grid {
+  .emblem {
+    width: 90px;
+    height: 90px;
+    margin: 20px auto;
+  }
+  
+  .emblem::before {
+    font-size: 36px;
+  }
+  
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .parchment, 
+  .innkeeper, 
+  .reservation-form {
+    padding: 25px;
+  }
+  
+  .portrait-frame {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .form-group {
+    flex-basis: 100%;
+  }
+  
+  .main-nav a {
+    padding: 15px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  
+  .banner {
+    padding: 60px 15px;
+  }
+  
+  .section {
+    margin: 50px 0;
+  }
+  
+  .section-header {
+    margin-bottom: 20px;
+  }
+  
+  .menu-container {
     grid-template-columns: 1fr;
   }
   
-  nav {
-    flex-wrap: wrap;
+  .testimonial {
+    padding: 20px 20px 60px;
   }
   
-  nav a {
-    padding: 8px 12px;
-    font-size: 1rem;
+  .testimonial::before {
+    font-size: 4rem;
   }
-}
-
-/* Scroll Animation */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in.active {
-  opacity: 1;
-  transform: translateY(0);
 }
